@@ -7,9 +7,12 @@
     <EditText
         android:id="@+id/head_creator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:hint="@string/head"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLength="40"
+        android:inputType="textCapSentences"
+        android:singleLine="true"/>
 
     <EditText
         android:id="@+id/description_creator"

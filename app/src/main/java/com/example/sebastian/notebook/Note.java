@@ -1,15 +1,24 @@
 package com.example.sebastian.notebook;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Sebastian on 2017-02-09.
  */
-public class Note {
+public class Note extends RealmObject {
+    @PrimaryKey
     private int id;
     private String head;
     private String content;
     private Long dataCreated;
 
+    public Note(){}
 
+public Note(String head, String content){
+    this.head = head;
+    this.content = content;
+}
     public int getId() {
         return id;
     }

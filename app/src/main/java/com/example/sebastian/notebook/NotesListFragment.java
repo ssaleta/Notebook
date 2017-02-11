@@ -1,6 +1,8 @@
 package com.example.sebastian.notebook;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -24,8 +27,22 @@ public class NotesListFragment extends ListFragment {
     private Realm realm;
     private ArrayList<String> noteArrayList;
 
+    private NoteListListener noteListListener;
+
     public NotesListFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this.noteListListener = (NoteListListener)context;
+    }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id){
+        if(noteListListener != null){
+            noteListListener.itemClicked(id);
+        }
     }
 
 

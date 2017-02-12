@@ -9,6 +9,8 @@ import android.app.Fragment;
 import android.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,13 +97,25 @@ public class NotesListFragment extends ListFragment {
         }
     }
     @Override
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.create:
                 Intent intent = new Intent(getActivity(),NoteCreator.class);
                 startActivity(intent);
                 return true;
-
+            case R.id.action_clear_notes:
+                realm.beginTransaction();
+                final RealmResults<Note> notesResult = realm.where(Note.class).findAll();
+                notesResult.deleteAllFromRealm();
+                realm.commitTransaction();
+                Intent intent2 = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent2);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -41,33 +41,7 @@ public class MainActivity extends AppCompatActivity implements NoteListListener 
             }
         });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.create) {
-            Intent intent = new Intent(MainActivity.this, NoteCreator.class);
-            startActivity(intent);
-
-        }
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
+    
     @Override
     protected void onResume(){
         super.onResume();
@@ -75,13 +49,8 @@ public class MainActivity extends AppCompatActivity implements NoteListListener 
     }
 
 
-
     @Override
     public void itemClicked(long id) {
-        /*Log.e("MainActivity", "id" +id);
-        Intent intent = new Intent(MainActivity.this, NoteDetails.class);
-        intent.putExtra("noteId", id);
-        startActivity(intent);*/
         View fragmentContainer = findViewById(R.id.fragment_container);
         if (fragmentContainer != null){
             NoteDetailsFragment details = new NoteDetailsFragment();

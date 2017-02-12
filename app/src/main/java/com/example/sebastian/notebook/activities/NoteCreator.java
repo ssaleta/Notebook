@@ -1,4 +1,4 @@
-package com.example.sebastian.notebook;
+package com.example.sebastian.notebook.activities;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.example.sebastian.notebook.R;
 
 public class NoteCreator extends AppCompatActivity {
 

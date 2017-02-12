@@ -1,17 +1,20 @@
-package com.example.sebastian.notebook;
+package com.example.sebastian.notebook.fragments;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
+import android.app.Fragment;
+import android.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.sebastian.notebook.Note;
+import com.example.sebastian.notebook.NoteListListener;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,7 @@ public class NotesListFragment extends ListFragment {
         // Required empty public constructor
     }
 
+
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
@@ -51,9 +55,8 @@ public class NotesListFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        realm.init(getContext());
+        realm.init(container.getContext());
         realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
         final RealmResults<Note> notesResult = realm.where(Note.class).findAll();
         Log.e("realmresult", " " + notesResult.size());
         if (notesResult.size() != 0) {

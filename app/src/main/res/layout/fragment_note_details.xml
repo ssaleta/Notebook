@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.NoteDetailsFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/header_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/head"
+        android:padding="10dp"
+        />
+    <TextView
+        android:id="@+id/description_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:padding="10dp"/>
+
+</LinearLayout>

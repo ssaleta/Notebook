@@ -1,15 +1,18 @@
-package com.example.sebastian.notebook;
+package com.example.sebastian.notebook.fragments;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import com.example.sebastian.notebook.Note;
+import com.example.sebastian.notebook.R;
+import com.example.sebastian.notebook.activities.MainActivity;
 
 import java.util.ArrayList;
 

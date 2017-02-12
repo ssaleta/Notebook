@@ -3,11 +3,13 @@ package com.example.sebastian.notebook.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -15,6 +17,9 @@ import android.widget.ListView;
 
 import com.example.sebastian.notebook.Note;
 import com.example.sebastian.notebook.NoteListListener;
+import com.example.sebastian.notebook.R;
+import com.example.sebastian.notebook.activities.MainActivity;
+import com.example.sebastian.notebook.activities.NoteCreator;
 
 import java.util.ArrayList;
 
@@ -54,6 +59,7 @@ public class NotesListFragment extends ListFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
 
         realm.init(container.getContext());
         realm = Realm.getDefaultInstance();
@@ -86,6 +92,18 @@ public class NotesListFragment extends ListFragment {
             String[] noteHead = new String[1];
             noteHead[0] = noteList[0].getHead();
             Log.e("realmresult", " " + noteList[0].getHead());
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.create:
+                Intent intent = new Intent(getActivity(),NoteCreator.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

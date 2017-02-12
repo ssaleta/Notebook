@@ -52,7 +52,7 @@ public class NoteDetailsFragment extends Fragment {
 
         headDetails = (TextView) view.findViewById(R.id.header_details);
         desctiptionDetails = (TextView) view.findViewById(R.id.description_details);
-        realm.init(getContext());
+        realm.init(view.getContext());
         realm = Realm.getDefaultInstance();
         notesResult = realm.where(Note.class).findAll();
         int id = noteID;
@@ -60,5 +60,6 @@ public class NoteDetailsFragment extends Fragment {
         ArrayList<Note> noteArrayList = new ArrayList(notesResult);
         Note note = noteArrayList.get(id);
         headDetails.setText(note.getHead());
+        desctiptionDetails.setText(note.getContent());
     }
 }

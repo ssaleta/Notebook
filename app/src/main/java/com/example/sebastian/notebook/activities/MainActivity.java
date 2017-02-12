@@ -26,12 +26,10 @@ public class MainActivity extends AppCompatActivity implements NoteListListener 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         View fragmentContainer = findViewById(R.id.fragment_container);
-
             NotesListFragment list = new NotesListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, list);
         /*    transaction.addToBackStack(null);*/
-
             transaction.commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NoteListListener 
         return true;
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -68,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NoteListListener 
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     protected void onResume(){

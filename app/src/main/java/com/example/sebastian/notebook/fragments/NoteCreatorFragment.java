@@ -73,6 +73,7 @@ public class NoteCreatorFragment extends Fragment {
     }
 
     public void saveNote() {
+        realm.beginTransaction();
         realm.copyToRealm(note);
         realm.commitTransaction();
     }

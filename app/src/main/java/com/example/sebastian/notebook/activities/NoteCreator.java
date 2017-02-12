@@ -25,4 +25,9 @@ public class NoteCreator extends AppCompatActivity {
         inflater.inflate(R.menu.menu_creator, menu);
         return true;
     }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        finish();
+    }
 }

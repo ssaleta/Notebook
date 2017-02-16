@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_done"
         app:showAsAction="ifRoom"
         android:title="done" />
+    <item
+        android:id="@+id/action_camera"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_camera"
+        app:showAsAction="ifRoom"
+        android:title="camera" />
 </menu>

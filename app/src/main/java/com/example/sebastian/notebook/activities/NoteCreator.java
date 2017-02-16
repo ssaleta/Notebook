@@ -1,5 +1,6 @@
 package com.example.sebastian.notebook.activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,5 +30,15 @@ public class NoteCreator extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         finish();
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+       Log.e("note creator","on destroy");
+    }
+   @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       Log.e("NoteCreator","photo");
     }
 }

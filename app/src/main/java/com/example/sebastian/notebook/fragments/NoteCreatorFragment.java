@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,15 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.sebastian.notebook.Note;
 import com.example.sebastian.notebook.R;
 import com.example.sebastian.notebook.activities.MainActivity;
-import com.example.sebastian.notebook.activities.NoteCreator;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 
 import io.realm.Realm;
@@ -81,13 +77,21 @@ public class NoteCreatorFragment extends Fragment {
     }
 
     public void createNote() {
-        notesResult = realm.where(Note.class).findAll();
-        headerText = header.getText().toString();
-        descriptionText = description.getText().toString();
+        getNewNoteValues();
         note = new Note();
-        note.setId(notesResult.size() + 1);
+        note.setId(getAllNotes().size() + 1);
         note.setHead(headerText);
         note.setContent(descriptionText);
+    }
+
+    public void getNewNoteValues(){
+        headerText = header.getText().toString();
+        descriptionText = description.getText().toString();
+    }
+
+    private RealmResults<Note> getAllNotes(){
+        notesResult = realm.where(Note.class).findAll();
+        return notesResult;
     }
 
     public void saveNote() {
@@ -96,17 +100,17 @@ public class NoteCreatorFragment extends Fragment {
         realm.commitTransaction();
     }
 
-    public void takePhoto(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    public void capturePhoto(){
+        Intent capturePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         NoteCreatorFragment noteCreatorFragment = this;
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        startActivityForResult(capturePhotoIntent, REQUEST_IMAGE_CAPTURE);
 
 
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("NoteCreatorFragment","result");
+        Log.e("NoteCreatorFragment", "result");
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 // Do something with imagePath
@@ -141,26 +145,23 @@ public class NoteCreatorFragment extends Fragment {
         }
     }
 
-
-
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_done:
                 createNote();
                 saveNote();
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                goToActivity(MainActivity.class);
                 return true;
             case R.id.action_camera:
-                takePhoto();
-
+                capturePhoto();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void goToActivity(Class goToClass){
+        Intent goToActivityIntent = new Intent(getContext(), goToClass);
+        startActivity(goToActivityIntent);
     }
 }

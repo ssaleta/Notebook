@@ -1,6 +1,7 @@
 package com.example.sebastian.notebook.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -33,13 +34,13 @@ public class NoteDetailsFragment extends Fragment {
     private TextView desctiptionDetails;
     private RealmResults<Note> notesResult;
     private Realm realm;
+    private int noteId;
 
-
-    public void setNoteID(int noteID) {
-        this.noteID = noteID;
+    public void setNoteID(int noteId) {
+        this.noteId = noteId;
     }
 
-    private int noteID;
+
 
     public NoteDetailsFragment() {
         // Required empty public constructor
@@ -49,26 +50,34 @@ public class NoteDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
-        return inflater.inflate(R.layout.fragment_note_details, container, false);
+    return inflater.inflate(R.layout.fragment_note_details, container, false);
     }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         headDetails = (TextView) view.findViewById(R.id.header_details);
         desctiptionDetails = (TextView) view.findViewById(R.id.description_details);
-        realm.init(view.getContext());
-        realm = Realm.getDefaultInstance();
-        notesResult = realm.where(Note.class).findAll();
-        int id = noteID;
-        Log.e("NoteDetailsFragment"," "+id);
-        ArrayList<Note> noteArrayList = new ArrayList(notesResult);
-        Note note = noteArrayList.get(id);
-        headDetails.setText(note.getHead());
-        desctiptionDetails.setText(note.getContent());
+        initRealm(view.getContext());
+        getAllNotes();
+        headDetails.setText(getSelectedNote().getHead());
+        desctiptionDetails.setText(getSelectedNote().getContent());
     }
+
+    private void initRealm(Context context){
+        realm.init(context);
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+    }
+    private void getAllNotes(){
+        notesResult = realm.where(Note.class).findAll();
+    }
+    private Note getSelectedNote(){
+        ArrayList<Note> noteArrayList = new ArrayList(notesResult);
+        Note note = noteArrayList.get(noteId);
+        return note;
+    }
+
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
@@ -79,19 +88,20 @@ public class NoteDetailsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.create:
-                Intent intent = new Intent(getActivity(),NoteCreator.class);
-                startActivity(intent);
+                goToActivity(NoteCreator.class);
                 return true;
             case R.id.action_delete_note:
-                realm.beginTransaction();
-                final RealmResults<Note> notesResult = realm.where(Note.class).findAll();
-                notesResult.deleteFromRealm(noteID);
+                notesResult.deleteFromRealm(noteId);
                 realm.commitTransaction();
-                Intent intent2 = new Intent(getActivity(),MainActivity.class);
-                startActivity(intent2);
+                goToActivity(MainActivity.class);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void goToActivity(Class goToActivityClass){
+        Intent goToActivityIntent = new Intent(getActivity(), goToActivityClass);
+        startActivity(goToActivityIntent);
     }
 }

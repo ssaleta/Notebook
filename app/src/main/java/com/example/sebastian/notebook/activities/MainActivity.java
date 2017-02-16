@@ -55,13 +55,16 @@ public class MainActivity extends AppCompatActivity implements NoteListListener 
     public void itemClicked(long id) {
         View fragmentContainer = findViewById(R.id.fragment_container);
         if (fragmentContainer != null){
-            NoteDetailsFragment noteDetailsFragment = new NoteDetailsFragment();
-            noteDetailsFragment.setNoteID((int) id);
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, noteDetailsFragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.setTransition(fragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.commit();
+           addDetailsFragent(id);
         }
+    }
+    public void addDetailsFragent(long id){
+        NoteDetailsFragment noteDetailsFragment = new NoteDetailsFragment();
+        noteDetailsFragment.setNoteID((int) id);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, noteDetailsFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.setTransition(fragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.commit();
     }
 }
